@@ -1,0 +1,47 @@
+{% load new_blob %}
+{% load compress %}{% load core %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ site_name }} / {% block title %}{% endblock %}</title>
+
+        {% compress css %}
+            <link rel="stylesheet" href="/static/css/bootstrap.css">
+            <link rel="stylesheet" href="/static/css/pages.css">
+        {% endcompress %}
+
+		<script type="text/javascript" src="//use.typekit.net/mee3jwy.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		
+    </head>
+    <body>
+    
+    <div id="wrap" class="container">
+    	<header>
+    		<h1>{% block header %}{% endblock %}</h1>
+    		<p class="description">{% block description %}{% endblock %}</p>
+    	</header>
+    	
+    	<div id="content">
+    	{% block yield %}{% endblock %}
+        	
+    		<footer>
+    		<p class="tiny">Copyright &copy; 2012 fireball. All screenshots &copy; their respective owners.<br />Hosted by <a href="http://mediatemple.net/">(mt) Media Temple</a> and <a href="http://heroku.com">Heroku</a>.</p>
+    		</footer>
+    	
+    	</div>
+    	             
+    </div>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/vendor/wookmark/0.5/jquery.wookmark.js"></script>
+    <script src="/static/vendor/fancybox/2.0.6/jquery.fancybox.js"></script>
+    <script src="/static/vendor/imagesloaded/2.0.1/jquery.imagesloaded.js"></script>
+
+    <script src="/static/js/site.js"></script>
+    <script src="/static/js/messages.js"></script>
+    
+    </body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% load bootstrap_field %}
+
+
+{% block title %}New Blob{% endblock %}
+
+{% block yield %}
+    <div class="container">
+        <div class="row">
+            <div class="span6 offset3" id="form">
+                <h1>New Blob</h1>
+                {{ form.non_field_errors }}
+                <form enctype="multipart/form-data" action="{% url 'blobs:new-blob' %}" method="post" class="form-horizontal">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% bootstrap_field field %}
+                    {% endfor %}
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Post</button>
+                        <a href="{% url 'blobs:home' %}" class="btn">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

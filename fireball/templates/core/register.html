@@ -1,0 +1,31 @@
+{% extends 'core/pages.html' %}{% load bootstrap_field %}
+
+{% block title %}Register{% endblock %}
+{% block header %}Register{% endblock %}
+{% block description %}Create a new account{% endblock %}
+
+
+{% block yield %}
+<div class="form">
+    <form action="{% url 'core:register' %}" method="post" class="form-horizontal">
+        {% csrf_token %}
+        {% for field in form %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <span class="help-inline">
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        {{ error|escape }}
+                                    {% endfor %}
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                </div>                    
+        {% endfor %}
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a href="{% url 'blobs:home' %}" class="btn">Cancel</a>
+    </form>
+</div>
+{% endblock %}

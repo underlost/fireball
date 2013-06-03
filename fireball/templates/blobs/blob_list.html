@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}{% load humanize %}{% load compress %}{% load core %}
+
+{% block title %}
+{% if profile %}{{ user_obj }}
+{% else %}Recent blobs{% endif %}
+{% endblock %}
+
+{% block yield %}
+
+{% if profile %}
+{% if user_obj.image %}
+<div class="profile-header" id="{{ user_obj }}" style="background-image: url('{{ user_obj.image.url }}');">
+{% else %}
+<div class="profile-header" id="{{ user_obj }}" style="background-image: url('{{ latest.image.url }}');">
+{% endif %}
+	<div class="user-meta">
+		<img id="avatar" width="32" height="32" src="https://secure.gravatar.com/avatar/{{ user_obj|email_hash }}?s=64" />
+		<h2>{{ user_obj }}</h2>
+		
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#">Images</a></li>
+			<li><a href="#">Collections</a></li>
+			<li><a href="#">Tags</a></li>
+			<li><a href="#">Likes</a></li>
+		</ul>
+		
+	</div>
+</div>
+{% endif %}
+
+<ul id="blobs" class="unstyled">
+	{% for blob in object_list %}
+	<li class="blob" id="blob-{{ blob.id }}">
+	    
+	    <div class="photo">
+	    	<a href="{% url 'blobs:single' blob.id %}"><img src="{{ blob.thumbnail.url }}" width="200" ></a>
+	    </div>
+	    
+	    <div class="meta">
+	    	<span class="description">{{ blob.description }}</span>
+	    	<img class="pull-left" id="avatar" width="32" height="32" src="https://secure.gravatar.com/avatar/{{ blob.user|email_hash }}?s=32" />
+	    	<span class="date">{{ blob.pub_date|naturaltime }}</span>
+	    	<span class="username">by <a href="{% url 'blobs:user' blob.user %}">{{ blob.user }}</a></span>
+	    </div>
+	</li>
+  	{% endfor %}	
+</ul>
+{% endblock %}
+
+

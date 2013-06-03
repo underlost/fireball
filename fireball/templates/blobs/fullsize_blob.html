@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html> {% load compress %}{% load core %}{% load humanize %}
+    <head>
+        <title>{{ object.description }}</title>
+
+        {% compress css %}
+            <link rel="stylesheet" href="/static/css/bootstrap.css">
+            <link rel="stylesheet" href="/static/css/fullsize.css">
+        {% endcompress %}
+
+    </head>
+    <body>    
+        	    		
+		<div id="fullsize">
+		
+        		<div class="meta">
+        			<span class="username"><a href="{% url 'blobs:user' object.user %}">{{ object.user }}</a></span>
+        			<span class="date">{{ object.pub_date|naturaltime }}</span>
+        			
+        			<span class="description">{{ object.description }}</span>
+        		</div>
+        		
+        		<div class="blob">
+        			<img src="{{ object.image.url }}" alt="{{ object.description }}" />		
+        		</div>
+
+		</div>
+    </body>
+</html>

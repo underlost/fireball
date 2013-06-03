@@ -1,0 +1,34 @@
+{% extends 'core/pages.html' %}
+
+
+{% block title %}Login{% endblock %}
+
+{% block header %}Login{% endblock %}
+{% block description %}{% endblock %}
+
+{% block yield %}
+	<div id="form">
+	    <form action="{% url 'core:login' %}" method="post" class="form-horizontal">
+	        {% csrf_token %}
+	        {% for field in form %}
+	            <div class="control-group{% if field.errors %} error{% endif %}">
+	                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+	                    {{ field }}
+	                    {% if field.errors %}
+	                        <span class="help-inline">
+	                            {% if field.errors %}
+	                                {% for error in field.errors %}
+	                                    {{ error|escape }}
+	                                {% endfor %}
+	                            {% endif %}
+	                        </span>
+	                    {% endif %}
+	            </div>
+	        {% endfor %}
+	        
+	        <button type="submit" class="btn btn-primary">Login</button>
+	        <a href="{% url 'blobs:home' %}" class="btn">Cancel</a>
+	        
+	    </form>
+	</div>                      
+{% endblock %}

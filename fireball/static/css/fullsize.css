@@ -1,0 +1,41 @@
+/* @override http://fireball.herokuapp.com/static/css/fullsize.css */
+
+body {
+	background: url('/static/img/txture.png');
+}
+
+a {
+	color: #f2f2f2;
+}
+
+.meta {
+	margin-top: 60px;
+	text-align: center;
+	width: 200px;
+	float: left;
+}
+
+.meta span {
+	display: block;
+	font-size: 12px;
+}
+
+.meta span a {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.meta span.description {
+	margin-top: 10px;
+	padding: 0 10px;
+}
+
+.blob {
+	position: absolute;
+	margin-left: 200px;
+	margin-right: 20px;
+	margin-top: 40px;
+		-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+}

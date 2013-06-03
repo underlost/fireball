@@ -1,0 +1,87 @@
+{% load new_blob %}
+{% load compress %}{% load core %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ site_name }} / {% block title %}{% endblock %}</title>
+
+        {% compress css %}
+            <link rel="stylesheet" href="/static/css/bootstrap.css">
+            <link rel="stylesheet" href="/static/vendor/fancybox/2.0.6/jquery.fancybox.css">
+            <link rel="stylesheet" href="/static/css/site.css">
+            {% block css %}{% endblock %}
+        {% endcompress %}
+
+		<script type="text/javascript" src="//use.typekit.net/mee3jwy.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		
+    </head>
+    <body>    
+    
+    	<div class="navbar navbar-fixed-top">
+	      <div class="navbar-inner">
+	          <a href="{% url 'blobs:home' %}" class="brand">Fireball</a>
+	            <ul class="nav pull-right">
+	              {% if user.is_authenticated %}
+	                  <li><a href="#new-blob" data-toggle="modal">Add</a></li>
+	              {% endif %}
+	                  <li class="dropdown">
+	                  	<a href="/about" class="dropdown-toggle" data-toggle="dropdown">Sort <b class="caret"></b></a>
+	                  	<ul class="dropdown-menu">
+	                  		<li><a href="/about">Newest</a></li>
+	                  		<li><a href="/about/help">Popular</a></li>
+	                  	</ul>
+	                  <li class="dropdown">
+                          <a href="/about" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="/about">About fireball</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/about/terms">Terms of Use</a></li>
+                            <li><a href="/about/privacy">Privacy Policy</a></li>
+                          </ul>
+                        </li>
+	              {% if user.is_authenticated %}
+	              	<li class="dropdown">
+	              		<a href="/about" class="dropdown-toggle" data-toggle="dropdown"> <img id="avatar" width="24" height="24" src="https://secure.gravatar.com/avatar/{{ user.username|email_hash }}?s=32"> {{ user.username }} <b class="caret"></b></a>
+	              		  <ul class="dropdown-menu">
+	              		    <li><a href="/about">View Profile</a></li>
+	              		    <li class="divider"></li>
+	              		    <li><a href="/settings/">Settings</a></li>
+	              		    <li><a href="{% url 'core:logout' %}">Logout</a></li>
+	              		  </ul>
+	              	</li>
+	              {% else %}
+	                  <li><a href="{% url 'core:login' %}">Login</a></li>
+	                  <li><a href="{% url 'core:register' %}">Register</a></li>
+	              {% endif %}
+	            </ul>
+	      </div>
+	    </div>
+    	    		
+		<div id="content">
+		
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block yield %}{% endblock %}
+
+        {% new_blob request %}
+        
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script src="/static/js/bootstrap.min.js"></script>
+            <script src="/static/vendor/wookmark/0.5/jquery.wookmark.js"></script>
+            <script src="/static/vendor/fancybox/2.0.6/jquery.fancybox.js"></script>
+            <script src="/static/vendor/imagesloaded/2.0.1/jquery.imagesloaded.js"></script>
+
+            <script src="/static/js/site.js"></script>
+            <script src="/static/js/messages.js"></script>
+        
+	</div>
+    </body>
+</html>
